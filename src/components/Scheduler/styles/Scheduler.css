@@ -20,6 +20,53 @@
   align-items: center;
   justify-content: space-between;
 }
+.scheduler .s-top-bar .btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: flex;
+  transition: all 320ms;
+}
+.scheduler .s-top-bar .btn:hover {
+  color: #96b6f2;
+}
+.scheduler .s-top-bar .btn-today {
+  padding: 5px;
+}
+.scheduler .s-top-bar .week-navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  position: relative;
+}
+.scheduler .s-top-bar .week-navigation .year-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+}
+.scheduler .s-top-bar .week-navigation .navigation-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 2px;
+}
+.scheduler .s-top-bar .week-navigation .btn {
+  position: absolute;
+  height: 100%;
+  bottom: 0;
+  align-items: flex-end;
+  justify-content: center;
+}
+.scheduler .s-top-bar .week-navigation .btn.btn-prev-week {
+  left: 0;
+}
+.scheduler .s-top-bar .week-navigation .btn.btn-next-week {
+  right: 0;
+}
 .scheduler .s-header {
   width: 100%;
   height: 60px;

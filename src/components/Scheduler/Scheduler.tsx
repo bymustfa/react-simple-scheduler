@@ -1,10 +1,14 @@
 import React, { FC, useEffect } from "react";
-import { ISchedulerProps } from "./types/Scheduler.types";
+import ConfigContext from "./context/ConfigContext";
+
+import type { ISchedulerProps } from "./types/Scheduler.types";
 import "./styles/Scheduler.css";
+
 import Days from "./helpers/days";
 import Times from "./helpers/times";
-import { DaysType } from "./types/Days.types";
-import { TimesType } from "./types/Times.types";
+
+import type { DaysType } from "./types/Days.types";
+import type { TimesType } from "./types/Times.types";
 
 import TopBar from "./elements/TopBar";
 import Header from "./elements/Header";
@@ -46,17 +50,25 @@ const Scheduler: FC<ISchedulerProps> = ({
   ]);
 
   return (
-    <div className="scheduler">
-      <TopBar />
-      <Header days={days} />
-      <Body
-        showNowLine={nowLine}
-        days={days}
-        times={times}
-        cellClick={cellClick}
-      />
-      {hasFooter && <Footer days={days} />}
-    </div>
+    <ConfigContext.Provider
+      value={{
+        weekStartDay,
+        lang,
+        disableDays,
+      }}
+    >
+      <div className="scheduler">
+        <TopBar days={days} setDays={setDays} />
+        <Header days={days} />
+        <Body
+          showNowLine={nowLine}
+          days={days}
+          times={times}
+          cellClick={cellClick}
+        />
+        {hasFooter && <Footer days={days} />}
+      </div>{" "}
+    </ConfigContext.Provider>
   );
 };
 
