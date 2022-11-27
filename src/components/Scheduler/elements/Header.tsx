@@ -1,11 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { DaysType } from "../types/Days.types";
+import ConfigContext from "../context/ConfigContext";
 
-interface IHeaderProps {
-  days: DaysType[];
-}
+interface IHeaderProps {}
 
-const Header: FC<IHeaderProps> = ({ days }) => {
+const Header: FC<IHeaderProps> = () => {
+  const { days } = useContext(ConfigContext);
+
   return (
     <div className="s-header">
       <div className="time-head">Times</div>

@@ -6,12 +6,11 @@ import type { DaysType } from "../types/Days.types";
 import { Calander, ChevronLeft, ChevronRight } from "../icons";
 
 interface ITopBarProps {
-  days: DaysType[];
   setDays: (days: DaysType[]) => void;
 }
 
-const TopBar: FC<ITopBarProps> = ({ days, setDays }) => {
-  const { weekStartDay, lang, disableDays } = useContext(ConfigContext);
+const TopBar: FC<ITopBarProps> = ({ setDays }) => {
+  const { weekStartDay, lang, disableDays, days } = useContext(ConfigContext);
 
   const [startText, setStartText] = useState<string>("");
   const [endText, setEndText] = useState<string>("");

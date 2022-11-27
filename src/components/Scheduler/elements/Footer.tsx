@@ -1,11 +1,11 @@
-import React, { FC } from "react";
-import { DaysType } from "../types/Days.types";
+import React, { FC, useContext } from "react";
+import ConfigContext from "../context/ConfigContext";
 
-interface IFooterProps {
-  days: DaysType[];
-}
+interface IFooterProps {}
 
-const Footer: FC<IFooterProps> = ({ days }) => {
+const Footer: FC<IFooterProps> = () => {
+  const { days } = useContext(ConfigContext);
+
   return (
     <div className="s-footer">
       <div className="time-foot">Times</div>

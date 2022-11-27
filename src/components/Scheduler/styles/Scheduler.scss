@@ -184,20 +184,38 @@ $cellHeight: 100px;
     }
 
     .day-column {
-      height: 100%;
+      position: relative;
+
+      .event-item {
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        background: $purpleLight;
+        border: $purple solid 1px;
+        border-radius: 6px;
+        padding: 10px;
+        box-sizing: border-box;
+        color: $textColor;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 320ms;
+        left: 0;
+
+        &:hover {
+          background: $purple;
+          color: $white;
+        }
+      }
 
     }
 
     .column {
       width: 100%;
 
-
       .cell-item {
         height: $cellHeight;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         border: 1px solid $lightGray;
+        position: relative;
         cursor: pointer;
 
         &:hover {

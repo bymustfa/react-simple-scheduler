@@ -31,6 +31,11 @@ const App: FC = () => {
   ];
 
   const times = [
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
     "09:00",
     "10:00",
     "11:00",
@@ -41,6 +46,10 @@ const App: FC = () => {
     "16:00",
     "17:00",
     "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
   ];
 
   const langs = [
@@ -194,6 +203,22 @@ const App: FC = () => {
         lang={language}
         hasFooter={hasFooter}
         nowLine={showNowLine}
+        events={[
+          {
+            id: 1,
+            title: "Demo1",
+            date: new Date(),
+            startTime: "16:40",
+            endTime: "17:45",
+          },
+          {
+            id: 2,
+            title: "Demo2",
+            date: new Date("2022-11-29"),
+            startTime: "12:30",
+            endTime: "13:45",
+          },
+        ]}
         cellClick={(cell) => {
           console.log("click cell", cell);
         }}

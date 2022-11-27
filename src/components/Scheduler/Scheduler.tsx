@@ -24,6 +24,7 @@ const Scheduler: FC<ISchedulerProps> = ({
   disableDays = [],
   nowLine = true,
   hasFooter = false,
+  events,
   cellClick,
   eventClick,
 }) => {
@@ -56,18 +57,16 @@ const Scheduler: FC<ISchedulerProps> = ({
         lang,
         disableDays,
         timeSlotInterval,
+        events,
+        days,
+        times,
       }}
     >
       <div className="scheduler">
-        <TopBar days={days} setDays={setDays} />
-        <Header days={days} />
-        <Body
-          showNowLine={nowLine}
-          days={days}
-          times={times}
-          cellClick={cellClick}
-        />
-        {hasFooter && <Footer days={days} />}
+        <TopBar setDays={setDays} />
+        <Header />
+        <Body showNowLine={nowLine} cellClick={cellClick} />
+        {hasFooter && <Footer />}
       </div>
     </ConfigContext.Provider>
   );
