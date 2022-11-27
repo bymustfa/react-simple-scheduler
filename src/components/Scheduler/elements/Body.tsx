@@ -12,6 +12,8 @@ interface IBodyProps {
 const Body: FC<IBodyProps> = ({ showNowLine = true, cellClick }) => {
   const { timeSlotInterval, events, days, times } = useContext(ConfigContext);
 
+  const [nowLine, setNowLine] = useState<boolean>(showNowLine);
+
   const [time, setTime] = useState<string>(
     new Date().getHours() + ":" + new Date().getMinutes()
   );
@@ -66,10 +68,25 @@ const Body: FC<IBodyProps> = ({ showNowLine = true, cellClick }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(new Date().getHours() + ":" + new Date().getMinutes());
+      const today = new Date();
+      const endTime = new Date(
+        today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate() +
+          " " +
+          times[times.length - 1].endTime
+      );
+      if (today.getTime() > endTime.getTime()) {
+        setNowLine(false);
+      } else {
+        setNowLine(true);
+        setTime(new Date().getHours() + ":" + new Date().getMinutes());
+      }
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [timeSlotInterval, times]);
 
   useEffect(() => {
     calculateNowLinePosition();
@@ -79,11 +96,13 @@ const Body: FC<IBodyProps> = ({ showNowLine = true, cellClick }) => {
     if (timesColumnRef.current) {
       setAreaHeightPX(timesColumnRef.current.offsetHeight);
     }
-  }, [timesColumnRef.current]);
+  }, [timesColumnRef.current, times, timeSlotInterval]);
+
+  console.log(areaHeightPX);
 
   return (
     <div className="s-body">
-      {showNowLine && (
+      {nowLine && (
         <div ref={nowLineRef} className="now-line" style={{ top: "100%" }}>
           <span>{time}</span>
         </div>
@@ -126,67 +145,76 @@ const Body: FC<IBodyProps> = ({ showNowLine = true, cellClick }) => {
               />
             ))}
 
-            {todayEvents.map((event, eventIndex) => {
-              const { startTime, endTime, date } = event;
-              const eventDate = new Date(date);
-              const eventStartTime = new Date(
-                eventDate.getFullYear() +
-                  "/" +
-                  eventDate.getMonth() +
-                  "/" +
-                  eventDate.getDate() +
-                  " " +
-                  startTime
-              );
+            {timeSlotInterval &&
+              todayEvents.map((event, eventIndex) => {
+                const { startTime, endTime, date } = event;
+                const eventDate = new Date(date);
+                const eventStartTime = new Date(
+                  eventDate.getFullYear() +
+                    "/" +
+                    eventDate.getMonth() +
+                    "/" +
+                    eventDate.getDate() +
+                    " " +
+                    startTime
+                );
 
-              const dayDate = new Date(day.date);
-              const dayStartTime = new Date(
-                dayDate.getFullYear() +
-                  "/" +
-                  dayDate.getMonth() +
-                  "/" +
-                  dayDate.getDate() +
-                  " " +
-                  times[0].startTime
-              );
+                const eventEndTime = new Date(
+                  eventDate.getFullYear() +
+                    "/" +
+                    eventDate.getMonth() +
+                    "/" +
+                    eventDate.getDate() +
+                    " " +
+                    endTime
+                );
 
-              const dayEndTime = new Date(
-                dayDate.getFullYear() +
-                  "/" +
-                  dayDate.getMonth() +
-                  "/" +
-                  dayDate.getDate() +
-                  " " +
-                  times[times.length - 1].endTime
-              );
+                const dayDate = new Date(day.date);
+                const dayStartTime = new Date(
+                  dayDate.getFullYear() +
+                    "/" +
+                    dayDate.getMonth() +
+                    "/" +
+                    dayDate.getDate() +
+                    " " +
+                    times[0].startTime
+                );
 
-              const topPercent =
-                ((eventStartTime.getTime() - dayStartTime.getTime()) /
-                  (dayEndTime.getTime() - dayStartTime.getTime())) *
-                100;
+                const dayEndTime = new Date(
+                  dayDate.getFullYear() +
+                    "/" +
+                    dayDate.getMonth() +
+                    "/" +
+                    dayDate.getDate() +
+                    " " +
+                    times[times.length - 1].endTime
+                );
 
-              const eventEndTime = new Date(
-                eventDate.getFullYear() +
-                  "/" +
-                  eventDate.getMonth() +
-                  "/" +
-                  eventDate.getDate() +
-                  " " +
-                  endTime
-              );
+                const topPercent =
+                  ((eventStartTime.getTime() - dayStartTime.getTime()) /
+                    (dayEndTime.getTime() - dayStartTime.getTime())) *
+                  100;
 
-              return (
-                <EventItem
-                  key={eventIndex}
-                  id={event.id}
-                  title={event.title}
-                  date={event.date}
-                  endTime={event.endTime}
-                  startTime={event.startTime}
-                  topPercent={topPercent}
-                />
-              );
-            })}
+                const eventHeight = Math.abs(
+                  ((eventEndTime.getTime() - eventStartTime.getTime()) /
+                    (dayEndTime.getTime() - dayStartTime.getTime())) *
+                    100
+                );
+                console.log(eventHeight);
+
+                return (
+                  <EventItem
+                    key={eventIndex}
+                    id={event.id}
+                    title={event.title}
+                    date={event.date}
+                    endTime={event.endTime}
+                    startTime={event.startTime}
+                    topPercent={topPercent}
+                    heightPercent={eventHeight}
+                  />
+                );
+              })}
           </div>
         );
       })}

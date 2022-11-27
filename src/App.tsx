@@ -208,15 +208,15 @@ const App: FC = () => {
             id: 1,
             title: "Demo1",
             date: new Date(),
-            startTime: "16:40",
-            endTime: "17:45",
+            startTime: "15:40",
+            endTime: "16:45",
           },
           {
             id: 2,
             title: "Demo2",
             date: new Date("2022-11-29"),
-            startTime: "12:30",
-            endTime: "13:45",
+            startTime: "12:32",
+            endTime: "13:55",
           },
         ]}
         cellClick={(cell) => {

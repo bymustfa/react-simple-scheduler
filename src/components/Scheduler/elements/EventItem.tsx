@@ -9,6 +9,7 @@ interface IEventItemProps {
   endTime: string;
   render?: (event: Event) => ReactNode;
   topPercent: number;
+  heightPercent: number;
 }
 
 const EventItem: FC<IEventItemProps> = ({
@@ -19,15 +20,26 @@ const EventItem: FC<IEventItemProps> = ({
   endTime,
   render,
   topPercent,
+  heightPercent,
 }) => {
   return (
     <div
       className="event-item"
       style={{
         top: topPercent + "%",
+        height: heightPercent + "%",
       }}
     >
-      {render ? render({ id, title, date, startTime, endTime }) : title}
+      {render ? (
+        render({ id, title, date, startTime, endTime })
+      ) : (
+        <div>
+          <div>{title}</div>
+          <div>
+            {startTime} - {endTime}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
