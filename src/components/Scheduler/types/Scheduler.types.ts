@@ -31,10 +31,12 @@ export interface CellClickEvent {
   time: TimesType;
 }
 
+export type TimeSlotInterval = 5 | 10 | 15 | 20 | 30 | 40 | 45 | 60;
+
 export interface ISchedulerProps {
   timeSlotStartTime: string;
   timeSlotEndTime: string;
-  timeSlotInterval?: number;
+  timeSlotInterval?: TimeSlotInterval;
   weekStartDay?: DaysIndex;
   disableDays?: DaysIndex[];
   lang?: Langs;

@@ -55,6 +55,7 @@ const Scheduler: FC<ISchedulerProps> = ({
         weekStartDay,
         lang,
         disableDays,
+        timeSlotInterval,
       }}
     >
       <div className="scheduler">
@@ -67,7 +68,7 @@ const Scheduler: FC<ISchedulerProps> = ({
           cellClick={cellClick}
         />
         {hasFooter && <Footer days={days} />}
-      </div>{" "}
+      </div>
     </ConfigContext.Provider>
   );
 };

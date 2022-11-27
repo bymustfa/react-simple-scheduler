@@ -113,6 +113,25 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  position: relative;
+}
+.scheduler .s-body .now-line {
+  position: absolute;
+  right: 0;
+  width: 99%;
+  height: 2px;
+  background: rgba(255, 0, 0, 0.5);
+  z-index: 99;
+}
+.scheduler .s-body .now-line span {
+  position: relative;
+  left: -26px;
+  bottom: 8px;
+  color: rgb(255, 0, 0);
+  font-size: 14px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.5);
+  transform: rotate(-90deg) !important;
 }
 .scheduler .s-body .day-column {
   height: 100%;

@@ -3,12 +3,17 @@ import Select from "react-select";
 import "./app.css";
 
 import Scheduler from "./components/Scheduler/Scheduler";
-import { DaysIndex, Langs } from "./components/Scheduler/types/Scheduler.types";
+import {
+  DaysIndex,
+  Langs,
+  TimeSlotInterval,
+} from "./components/Scheduler/types/Scheduler.types";
 
 const App: FC = () => {
   const [timeSlotStartTime, setTimeSlotStartTime] = useState("09:00");
   const [timeSlotEndTime, setTimeSlotEndTime] = useState("18:00");
-  const [timeSlotInterval, setTimeSlotInterval] = useState(30);
+  const [timeSlotInterval, setTimeSlotInterval] =
+    useState<TimeSlotInterval>(30);
   const [weekStartDay, setWeekStartDay] = useState<DaysIndex>(0);
   const [disableDays, setDisableDays] = useState<DaysIndex[]>([0]);
   const [language, setLanguage] = useState<Langs>("en");
@@ -52,6 +57,8 @@ const App: FC = () => {
     "tr",
   ];
 
+  const timeSlotIntervals: TimeSlotInterval[] = [5, 10, 15, 20, 30, 40, 45, 60];
+
   return (
     <div className="main">
       <div className="options-form">
@@ -78,7 +85,7 @@ const App: FC = () => {
           <label>Time Slots Interval (Minute)</label>
 
           <Select
-            options={[15, 30, 45, 60].map((time) => ({
+            options={timeSlotIntervals.map((time) => ({
               value: time,
               label: time,
             }))}
